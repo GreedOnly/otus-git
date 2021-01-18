@@ -7,7 +7,7 @@ sudo systemctl start nginx.service
 sudo systemctl enable nginx.service 
 yum install -y httpd
 sleep 3
-cp -r /vagrant/www/html/* /var/www/
+cp -r /vagrant/www/* /var/www/
 cp -r /vagrant/httpd/conf.d/* /etc/httpd/conf.d/
 cp -r /vagrant/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf
 systemctl enable httpd.service 
