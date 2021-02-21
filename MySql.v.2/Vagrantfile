@@ -1,0 +1,31 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Every Vagrant development environment requires a box. You can search for
+# boxes at https://atlas.hashicorp.com/search.
+BOX_IMAGE = "centos/7"
+
+Vagrant.configure("2") do |config|
+  config.vm.define "mysql01" do |subconfig| 
+    subconfig.vm.box = BOX_IMAGE
+    subconfig.vm.hostname = "mysql01"
+    subconfig.vm.network :private_network, ip: "192.168.121.37"
+  end
+     
+  config.vm.define "mysql02" do |subconfig|
+    subconfig.vm.box = BOX_IMAGE
+    subconfig.vm.hostname = "mysql02"
+    subconfig.vm.network :private_network, ip: "192.168.121.34"
+  end
+
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "2048", "--cpus", "2"]
+  end
+  # Realizind bootlean with SHELL  
+  config.vm.provision "shell", inline: <<-SHELL
+  mkdir -p ~root/.ssh; cp ~vagrant/.ssh/auth* ~root/.ssh
+  sed -i '65s/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+  systemctl restart sshd
+  bash -c " sed -i -e 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config" && sudo reboot
+SHELL
+end

@@ -1,0 +1,24 @@
+cat <<EOF>> .my.cnf
+[client]
+password="`sudo grep 'temporary password' /var/log/mysqld.log | cut -d: -f4 | sed s/' '//g`"
+EOF
+sudo grep 'temporary password' /var/log/mysqld.log
+cut -d: -f1,3 /etc/passwd
+cut -d: -f1
+sudo grep 'temporary password' /var/log/mysqld.log | cut -d: -f4
+
+password=`hostname`    
+password="`sudo grep 'temporary password' /var/log/mysqld.log | cut -d: -f4`"
+
+-v '^#'
+egrep -v '^#|^$'
+
+AstraAstra1#
+cat <<EOF>> .my.cnf
+[client]
+user=root
+password="AstraAstra1#"
+EOF
+
+echo -e "Linux \nopen \nsource \nsoftware \ntechnologies"
+echo -e "[client] \user=root \password="`sudo grep 'temporary password' /var/log/mysqld.log | cut -d: -f4 | sed s/' '//g`" > .my.cnf

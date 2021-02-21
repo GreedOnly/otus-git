@@ -1,0 +1,17 @@
+---
+- name: use "mysql_secure_installation" for Fresh MySQL Installation
+      mysql_secure_installation:
+        login_password: ''
+        new_password: password22
+        user: root
+        login_host: localhost
+        hosts: ['localhost', '127.0.0.1', '::1']
+        change_root_password: true
+        remove_anonymous_user: true
+        disallow_root_login_remotely: true
+        remove_test_db: true
+      register: secure
+
+    - debug:
+        var: secure
+...

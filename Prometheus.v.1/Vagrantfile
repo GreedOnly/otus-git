@@ -1,0 +1,16 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+    config.vm.define "app" do |app|
+      app.vm.box = "bento/ubuntu-18.04"
+      app.vm.hostname = "app"
+      app.vm.network "private_network", ip: "192.168.50.88"
+      app.vm.network "forwarded_port", guest: 80, host: 8080
+      app.vm.network "forwarded_port", guest: 9093, host: 9993
+      app.vm.network "forwarded_port", guest: 9090, host: 9990
+      app.vm.network "forwarded_port", guest: 3000, host: 3333
+    end
+  
+  end

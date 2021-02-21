@@ -1,0 +1,14 @@
+---
+- name: Install MySQL on VM
+  hosts: mysql01
+  become: true
+  vars:
+    nginx_listen_port: 8080
+  
+  tasks: 
+    - name: Install MySQL-python
+      yum:
+        name: MySQL-python
+        state: present
+    
+...

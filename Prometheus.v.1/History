@@ -1,0 +1,57 @@
+
+vagrant up
+
+vagrant ssh
+sudo apt-get install apt-transport-https ca-certificates curl gnupg2 software-properties-common -y
+sudo apt-get install -y имя_пакета 
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add 
+sudo apt-key fingerprint 0EBFCD88 
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" 
+sudo apt-get install docker-ce -y
+sudo usermod -aG docker vagrant
+logout
+
+vagrant reload 
+
+vagrant ssh
+Ставим ноду 
+curl -sL https://deb.nodesource.com/setup_10.x -o nodesource_setup.sh 
+sudo chmod +x nodesource_setup.sh 
+sudo ./nodesource_setup.sh 
+sudo apt-get -y install nodejs 
+sudo apt-get -y install build-essential 
+git clone https://github.com/shapovalovdev/content-devops-monitoring-app.git forethought 
+sudo apt-get install git -y 
+cd forethought 
+docker build -t ft-app . 
+docker run --name ft-app -p 80:8080 -d 
+ft-app 
+localhost:8080 
+
+sudo useradd --no-create-home --shell /bin/false prometheus 
+sudo mkdir /etc/prometheus 
+sudo mkdir /var/lib/prometheus 
+sudo chown prometheus:prometheus /var/lib/prometheus 
+wget https://github.com/prometheus/prometheus/releases/download/v2.7.1/prometheus-2.7.1.linux-amd64.tar.gz 
+tar -xvf prometheus-2.7.1.linux-amd64.tar.gz 
+tar -xvf prometheus-2.7.1.linux-amd64.tar.gz 
+cd prometheus-2.7.1.linux-amd64 
+sudo mv console* /etc/prometheus sudo mv prometheus.yml /etc/prometheus sudo chown -R prometheus:prometheus /etc/prometheus 
+
+Мувнуть бинари и задать пермишены 
+sudo mv prometheus /usr/local/bin/ sudo mv promtool /usr/local/bin/ sudo chown prometheus:prometheus /usr/local/bin/prometheus sudo chown prometheus:prometheus /usr/local/bin/promtool 
+
+Создать управляющий файл 
+sudo $EDITOR /etc/systemd/system/prometheus.service [Unit] Description=Prometheus Wants=network-online.target After=network-online.target [Service] User=prometheus Group=prometheus Type=simple ExecStart=/usr/local/bin/prometheus \ --config.file /etc/prometheus/prometheus.yml \ --storage.tsdb.path /var/lib/prometheus/ \ --web.console.templates=/etc/prometheus/consoles \ --web.console.libraries=/etc/prometheus/console_libraries [Install] WantedBy=multi-user.target 
+
+1. Создаём юзера 
+sudo useradd --no-create-home --shell /bin/false node_exporter 
+cd /tmp 
+Скачиваем архив 
+wget https://github.com/prometheus/node_exporter/releases/download/v0.17.0/node_exporter-0.17.0.linux-amd64.tar.gz 
+tar -xvf node_exporter-0.17.0.linux-amd64.tar.gz 
+Перемещаем node_exporter бинарь 
+и задаем пермишены 
+sudo vim /etc/systemd/system/node_exporter.service 
+sudo vim /etc/systemd/system/node_exporter.service 
+sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter 

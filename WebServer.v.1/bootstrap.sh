@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
-yum install -y epel-release
-yum install nginx -y
-cp /vagrant/nginx/conf.d/upstream.conf /etc/nginx/conf.d/upstream.conf
-cp /vagrant/nginx/nginx.conf /etc/nginx/nginx.conf
+sudo yum install -y epel-release
+sudo yum install nginx -y
+sudo cp /vagrant/nginx/conf.d/upstream.conf /etc/nginx/conf.d/upstream.conf
+sudo cp /vagrant/nginx/nginx.conf /etc/nginx/nginx.conf
 sudo systemctl start nginx.service
 sudo systemctl enable nginx.service 
-yum install -y httpd
+sudo yum install -y httpd
 sleep 3
-cp -r /vagrant/www/* /var/www/
-cp -r /vagrant/httpd/conf.d/* /etc/httpd/conf.d/
-cp -r /vagrant/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf
-systemctl enable httpd.service 
-bash -c " sed -i -e 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config" && sudo reboot
+sudo cp -r /vagrant/www/* /var/www/
+sudo cp -r /vagrant/httpd/conf.d/* /etc/httpd/conf.d/
+sudo cp -r /vagrant/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf
+sudo systemctl enable httpd.service 
+sudo bash -c " sed -i -e 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config" && sudo reboot

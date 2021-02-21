@@ -1,0 +1,17 @@
+---
+- name: Install MySQL on both VM, and meade it's avalible and started.
+  hosts: sql
+  become: true
+  tasks: 
+    - name: Install wget
+      yum:
+        name: wget
+        state: present
+    
+    - name: Download the MySql
+      get_url:
+        url: http://repo.mysql.com/mysql80-community-release-el7.rpm
+        dest: ~/
+        mode: 0440
+
+...

@@ -1,0 +1,16 @@
+---
+- name: Trying to do something with Mysql
+  hosts: mysql01
+  #become: true
+  vars:
+  #  nginx_listen_port: 8080
+  #  ansible_hostname: localhost
+
+    #mysql_root_password: AstraAstra1#
+  
+  tasks: 
+    - name: Set the root password 
+      mysql_user:
+        user=root
+        password="AstraAstra1#"
+...
