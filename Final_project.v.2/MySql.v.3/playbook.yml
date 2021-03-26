@@ -1,0 +1,6 @@
+---
+  - hosts: mysql01
+    become: yes
+    roles:
+      - ansible-role-mysql-master
+        
